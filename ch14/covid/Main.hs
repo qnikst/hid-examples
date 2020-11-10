@@ -12,12 +12,12 @@ import Streaming
 import Streaming.Zip
 import qualified Streaming.Prelude as S
 import Control.Monad.Trans.Resource
-import qualified Data.ByteString.Streaming.Char8 as C
 import qualified Data.ByteString.Char8 as BSC
 import qualified Data.Attoparsec.ByteString.Char8 as A
 import qualified Data.Attoparsec.ByteString.Streaming as ABS
 import Data.Text (Text)
 import qualified Data.Text.IO as T
+import Streaming.ByteString.Char8 as C
 import TextShow
 import Data.Map (Map)
 import qualified Data.Map as M
@@ -27,7 +27,7 @@ import CovidCSVParser
 
 type CountryCodeWithRest = (BSC.ByteString, BSC.ByteString)
 
-readCovidCSV :: Monad m => C.ByteString m r -> Stream (Of CountryData) m ()
+readCovidCSV :: Monad m => C.ByteStream m r -> Stream (Of CountryData) m ()
 readCovidCSV str =
   ABS.parsed countryCodeWithRest str
   & void
